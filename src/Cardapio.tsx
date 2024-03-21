@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
     imagens: {
         width: 150,
         height: 150,
-        borderRadius: 20
+        borderRadius: 20,
+        marginLeft: 150
 
     },
     footer: {
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'justify',
-        marginLeft: 250,
+        marginRight: 250,
          },
          
 
