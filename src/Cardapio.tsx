@@ -35,10 +35,8 @@ const renderItem = ({ item }: { item: Item }) => (
     <TouchableOpacity style={styles.item}>
         <Text style={styles.text}>{item.nome}</Text>
         <Text style={styles.text}>{item.ingredientes}</Text> 
-        <View style={styles.coluna}>
         <Text style={styles.textPreco}>{item.valor}</Text>
         <Image source={item.image} style={styles.imagens} />
-        </View>
     </TouchableOpacity>
 )
 
