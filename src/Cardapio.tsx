@@ -48,7 +48,7 @@ function cardapio(): React.JSX.Element {
 
         <View style={styles.container}>
 
-<Image source={require('./assets/imagens/logo.png')}  style={styles.logo} />
+<Image source={require('./assets/imagens/logo.png')}  style={styles.logo} />  
 
 
           
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
  },
     item: {
         padding: 20,
-        backgroundColor: '#4B0082',
+        backgroundColor: '#9d0208',
         marginVertical: 8,
         marginHorizontal: 16,
         borderRadius: 33
