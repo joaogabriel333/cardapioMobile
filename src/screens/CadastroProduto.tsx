@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Image, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View,} from "react-native";
-import { launchCamera } from "react-native-image-picker";
+import { launchCamera, launchImageLibrary } from "react-native-image-picker";
+import axios from 'axios'; 
 
 const CadastroProduto: React.FC = () => {
       const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -8,10 +9,31 @@ const CadastroProduto: React.FC = () => {
       const [preco, setPreco] = useState<string>('');
       const [ingredientes, setIngredientes] = useState<string>('');
       const [imagem, setImagem] = useState<any>('');
+     
+     
       const cadastrarProduto = async () => {
+        try {
 
+            
+        const formData = new FormData();
+        formData.append('nome', nome);
+        formData.append('preco', preco);
+        formData.append('ingredientes', ingredientes);
+        formData.append('imagem', {
+            uri: imagem,
+            type: 'image/jpeg',
+            name: new Date() + '.jpg'
+        });
+
+        const response = await axios.post('http://10.137.11.215:8000/api/produtos', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+         });
+      } catch (error) {
+        console.log(error);
       }
-
+    }
       const abrirCamera = () => {
         const options = {
             mediaType: 'photo',
@@ -29,6 +51,28 @@ const CadastroProduto: React.FC = () => {
             let imageUri = response.uri || response.assets?.[0]?.uri;
             setImagem(imageUri);
             console.log(imageUri);
+            }
+        });
+
+   
+      }
+
+      const selecionarImagem = () => {
+        const options = {
+            mediaType: 'photo',
+            includeBase64: false,
+            maxheight: 2000,
+            maxwhidth: 2000
+        };
+
+        launchImageLibrary(options, (response)=>{
+            if(response.didCancel){
+                console.log('cancelado pelo usuario');
+            } else if(response.error){
+                console.log('erro ao abrir a galeria');
+            } else {
+            let imageUri = response.uri || response.assets?.[0]?.uri;
+            setImagem(imageUri);
             }
         });
       }
@@ -58,13 +102,13 @@ const CadastroProduto: React.FC = () => {
             <View style={styles.alinhamentoImagemSelecionada}>
                 {imagem ? <Image source={{uri: imagem}} style={styles.imagemSelecionada} /> : null} 
                 </View>    
-                <TouchableOpacity style={styles.imageButton}>
+                <TouchableOpacity style={styles.imageButton} onPress={selecionarImagem}>
                     <Text style={styles.imagemButtomText}>Selecionar Imagem</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.imageButton}>
+                <TouchableOpacity style={styles.imageButton} onPress={abrirCamera}>
                     <Text style={styles.imagemButtomText}>Tirar Foto</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={cadastrarProduto}>
                     <Text style={styles.buttonText}>Cadastrar Produto</Text>
                 </TouchableOpacity>
           </View>
