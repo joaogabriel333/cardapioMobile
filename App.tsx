@@ -4,9 +4,9 @@ import CadastroProduto from './src/screens/CadastroProduto';
 import CadastroCliente from './src/screens/CadastroClientes';
 function App(): React.JSX.Element {
   return (
-    <Cardapio />
-   //<CadastroProduto/>
-   //<CadastroCliente/>
+    //<Cardapio />
+  // <CadastroProduto/>
+   <CadastroCliente/>
   
   
   

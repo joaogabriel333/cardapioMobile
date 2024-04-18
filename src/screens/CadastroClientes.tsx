@@ -7,11 +7,12 @@ const CadastroCliente: React.FC = () => {
       const [cliente, setCliente] = useState<string[]>([]);
       const [nome, setNome] = useState<string>('');
       const [endereco, setEndereco] = useState<string>('');
+      const [telefone, setTelefone] = useState<string>('');
       const [email, setEmail] = useState<string>('');
       const [cpf, setCpf] = useState<string>('');
       const [password, setPassword] = useState<string>('');
       const [imagem, setImagem] = useState<any>('');
-   
+      
      
      
       const cadastrarCliente = async () => {
@@ -20,9 +21,10 @@ const CadastroCliente: React.FC = () => {
             
         const formData = new FormData();
         formData.append('nome', nome);
-        formData.append('endereço', endereco);
+        formData.append('endereco', endereco);
+        formData.append('telefone', telefone);
         formData.append('email', email);
-        formData.append('CPF', cpf);
+        formData.append('cpf', cpf);
         formData.append('password', password);
         formData.append('imagem', {
             uri: imagem,
@@ -30,12 +32,13 @@ const CadastroCliente: React.FC = () => {
             name: new Date() + '.jpg'
         });
     
-
-        const response = await axios.post('http://10.137.11.215:8000/api/produtos', formData, {
+console.log(formData)
+        const response = await axios.post('http://10.137.11.215:8000/api/cliente', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
          });
+console.log(response.data)
       } catch (error) {
         console.log(error);
       }
@@ -84,7 +87,7 @@ const CadastroCliente: React.FC = () => {
       }
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor="#Black" barStyle="light-content" />
+          
             <View style={styles.header}>
                 <Text style= {styles.headerText}>cadastro de clientes</Text>
             </View>
@@ -112,9 +115,9 @@ const CadastroCliente: React.FC = () => {
                 onChangeText={setCpf} />
                  <TextInput
                 style={styles.input}
-                placeholder="Endereço"
-                value={endereco}
-                onChangeText={setEndereco} />
+                placeholder="Telefone"
+                value={telefone}
+                onChangeText={setTelefone} />
                  <TextInput
                 style={styles.input}
                 placeholder="Password"
