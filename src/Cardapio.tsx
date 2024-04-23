@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 interface Item {
 
@@ -44,6 +45,8 @@ const renderItem = ({ item }: { item: Item }) => (
 
 function cardapio(): React.JSX.Element {
 
+    const navigation = useNavigation();
+
     return (
 
         <View style={styles.container}>
@@ -66,11 +69,11 @@ function cardapio(): React.JSX.Element {
                 </TouchableOpacity>
 
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('PesquisaProdutos')}>
                     <Image source={require('./assets/imagens/perfil.png')} style={styles.footerIcon} />
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('CadastroProduto')}>
                     <Image source={require('./assets/imagens/home.png')} style={styles.footerIcon} />
                 </TouchableOpacity>
 
